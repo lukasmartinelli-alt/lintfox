@@ -2,6 +2,10 @@ FROM debian:jessie
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
+    make \
+    libxml2 \
+    perltidy \
+    rpmlint \
     hlint \
     nodejs \
     npm \
@@ -27,12 +31,12 @@ RUN wget --quiet -O /opt/oclint-${OCLINT_VERSION}.tar.gz https://github.com/ocli
  && rm /opt/oclint-${OCLINT_VERSION}.tar.gz \
  && ln -s /opt/oclint-${OCLINT_VERSION}/bin/oclint-${OCLINT_VERSION} /usr/bin/oclint
 
-RUN npm install -g geojsonhint \
+RUN npm install -g geojsonhint eslint jshint jslint csslint svgo \
  && pip install pep8 pyflakes==1.0.0 pylint==1.5.2 flake8==2.5.1 \
- && gem install ruby-lint rubocop
+ && gem install ruby-lint rubocop puppet-lint scss_lint yaml-lint
 
 COPY . /usr/src/app/
 WORKDIR /usr/src/app
 
 EXPOSE 8000
-CMD ["nigit", "--timeout", "20", "json.sh", "haskell.sh", "geojson.sh", "shell.sh", "pep8.sh", "ruby-lint.sh", "rubocop.sh", "pylint.sh", "flake8.sh", "pyflakes.sh"]
+CMD ["nigit", "--timeout", "20", "json.sh", "haskell.sh", "geojson.sh", "shell.sh", "pep8.sh", "ruby-lint.sh", "rubocop.sh", "pylint.sh", "flake8.sh", "pyflakes.sh", "eslint.sh", "jslint.sh", "jshint.sh", "puppet-lint.sh", "scss-lint.sh"]

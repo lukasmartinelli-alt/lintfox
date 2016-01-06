@@ -5,10 +5,10 @@ to most linters for most programming languages, data formats and configuration f
 
 ## Support
 
-- JSON
-  - jsonlint
-- Bash
-  - shellcheck
+- JavaScript
+  - eslint
+  - jshint
+  - jslint
 - Ruby
   - rubocop
   - ruby-lint
@@ -19,3 +19,7 @@ to most linters for most programming languages, data formats and configuration f
   - pyflakes
 - GeoJSON
   - geojsonhint
+- JSON
+  - jsonlint
+- Bash
+  - shellcheck
