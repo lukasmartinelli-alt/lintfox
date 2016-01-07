@@ -1,16 +1,16 @@
-# Lintcat [![Build Status](https://travis-ci.org/lukasmartinelli/lintcat.svg)](https://travis-ci.org/lukasmartinelli/lintcat) ![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)
+# Lintfox [![Build Status](https://travis-ci.org/lukasmartinelli/lintfox.svg)](https://travis-ci.org/lukasmartinelli/lintfox) ![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)
 
-<img align="right" alt="nigit cat logo" src="logo.png" />
+<img align="right" alt="nigit cat logo" src="lintfox.png" />
 
-Lintcat uses [Nigit](https://github.com/lukasmartinelli/nigit) and Docker to provide a **HTTP API** to most linters for most programming languages, data formats
+Lintfox uses [Nigit](https://github.com/lukasmartinelli/nigit) and Docker to provide a **HTTP API** to most linters for most programming languages, data formats
 and configuration files.
 
-## Run Lintcat
+## Run Lintfox
 
 Docker is and a combination of shell scripts is used to call each of the linters for a repository.
 
 ```bash
-docker run --rm -p 8000:8000 lukasmartinelli/lintcat .
+docker run --rm -p 8000:8000 lukasmartinelli/lintfox .
 ```
 
 ## Run a Linter via API Call
@@ -20,7 +20,7 @@ project to get the output of the linter. If the linter supports JSON formatting 
 to `application/json`.
 
 ```bash
-curl http://localhost8000/scss-lint?git_repository=https://github.com/lukasmartinelli/lintcat.git
+curl http://localhost8000/scss-lint?git_repository=https://github.com/lukasmartinelli/lintfox.git
 ```
 
 ## Support
