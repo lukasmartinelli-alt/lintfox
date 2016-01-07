@@ -7,7 +7,7 @@ source utils.sh
 
 function lint() {
     local repo_path=$(clone_repo)
-    jslint "$repo_path" || suppress_lint_error
+    jslint --json "$repo_path" || suppress_lint_error
     trap "rm -rf $repo_path" EXIT
 }
 

@@ -39,4 +39,4 @@ COPY . /usr/src/app/
 WORKDIR /usr/src/app
 
 EXPOSE 8000
-CMD ["nigit", "--timeout", "20", "json.sh", "haskell.sh", "geojson.sh", "shell.sh", "pep8.sh", "ruby-lint.sh", "rubocop.sh", "pylint.sh", "flake8.sh", "pyflakes.sh", "eslint.sh", "jslint.sh", "jshint.sh", "puppet-lint.sh", "scss-lint.sh"]
+CMD ["nigit", "--timeout", "20", "json.sh", "hlint.sh", "geojsonhint.sh", "shellcheck.sh", "pep8.sh", "ruby-lint.sh", "rubocop.sh", "pylint.sh", "flake8.sh", "pyflakes.sh", "eslint.sh", "jslint.sh", "jshint.sh", "puppet-lint.sh", "scss-lint.sh"]

@@ -7,7 +7,7 @@ source utils.sh
 
 function lint() {
     local repo_path=$(clone_repo)
-    ruby-lint ---presenter=json "$repo_path" || suppress_lint_error
+    shellcheck --format=json $(find_files "$repo_path" "sh") || suppress_lint_error
     trap "rm -rf $repo_path" EXIT
 }
 
