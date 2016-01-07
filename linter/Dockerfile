@@ -13,6 +13,7 @@ RUN apt-get update \
     wget \
     git \
     python \
+    jq \
     ruby \
     gem \
     python-pip \
@@ -38,5 +39,5 @@ RUN npm install -g geojsonhint eslint jshint jslint csslint svgo \
 COPY . /usr/src/app/
 WORKDIR /usr/src/app
 
-EXPOSE 8000
-CMD ["nigit", "--timeout", "20", "git.sh", "json.sh", "hlint.sh", "geojsonhint.sh", "shellcheck.sh", "pep8.sh", "ruby-lint.sh", "rubocop.sh", "pylint.sh", "flake8.sh", "pyflakes.sh", "eslint.sh", "jslint.sh", "jshint.sh", "puppet-lint.sh", "scss-lint.sh"]
+EXPOSE 80
+CMD ["nigit", "--port", "80", "--timeout", "20", "git.sh", "json.sh", "hlint.sh", "geojsonhint.sh", "shellcheck.sh", "pep8.sh", "ruby-lint.sh", "rubocop.sh", "pylint.sh", "flake8.sh", "pyflakes.sh", "eslint.sh", "jslint.sh", "jshint.sh", "puppet-lint.sh", "scss-lint.sh"]
