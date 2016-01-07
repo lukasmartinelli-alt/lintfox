@@ -3,4 +3,4 @@ language: bash
 services:
   - docker
 script:
-  - docker build -t lukasmartinelli/lintcat .
+  - docker build -t lukasmartinelli/lintcat linter
