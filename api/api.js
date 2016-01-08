@@ -1,8 +1,18 @@
 'use strict';
 var Q = require('q');
-var linter = require('./linter');
+var lint = require('./linters');
 
 module.exports = function(app, cache) {
+    app.get('/lint/', function(req, res) {
+        var repo = req.query.git_repo;
+        console.log(req.query);
+        lint(repo).then(function(results) {
+            res.json(results);
+        }).catch(function(err) {
+            res.json(err);
+        });
+    });
+
     app.get('/commits/', function(req, res) {
         var repo = req.query.git_repo;
         console.log(req.query);
