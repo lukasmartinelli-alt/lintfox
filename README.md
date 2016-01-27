@@ -5,7 +5,7 @@
 The goal of **Lintfox** is to encapsulate linters for almost all programming languages, data formats
 and configuration files into a single tool you can run on your source code.
 
-## Run Lintfox
+## Run Lintfox on your Code
 
 Docker is and a combination of shell scripts is used to call each of the linters for a repository.
 
@@ -50,5 +50,5 @@ curl http://localhost8000/scss-lint?git_repository=https://github.com/lukasmarti
 Build Docker container.
 
 ```bash
-docker build -t lukasmartinelli/lintcat .
+docker build -t lukasmartinelli/lintfox src
 ```

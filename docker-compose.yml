@@ -1,7 +1,0 @@
-api:
-  container_name: api
-  build: api
-  volumes:
-  - "./api:/usr/src/app"
-  ports:
-  - "3000:3000"
