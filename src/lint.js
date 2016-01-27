@@ -40,6 +40,27 @@ function findDefaultBranch(repoPath) {
     });
 }
 
+function geojsonhint(repoPath) {
+    return glob('**/*.geojson', { cwd: repoPath }).then(function(files) {
+        return Q.all(files.map(function(file) {
+            return execFileAlways('geojsonhint', ['--json', path.join(repoPath, file)]).then(function(stdout) {
+                var lintOutput = JSON.parse(stdout);
+                return lintOutput.map(function(issue) {
+                    return {
+                        path: file,
+                        line: issue.line,
+                        text: issue.message
+                    };
+                });
+            });
+        })).then(function(results) {
+            return results.reduce(function(a, b){
+                return a.concat(b);
+            });
+        });
+    });
+}
+
 function pylint(repoPath) {
     var msgTemplate = '{msg_id}|{path}|{line:3d}|{column}|{obj}|{msg}';
     return glob('**/*.py', { cwd: repoPath }).then(function(files) {
@@ -171,6 +192,7 @@ module.exports = function lint(repoPath) {
         pyflakes(repoPath),
         pylint(repoPath),
         flake8(repoPath),
+        geojsonhint(repoPath),
     ]).then(function(results) {
         return {
             pep8: results[0],
@@ -179,6 +201,7 @@ module.exports = function lint(repoPath) {
             pyflakes: results[3],
             pylint: results[4],
             flake8: results[5],
+            geojsonhint: results[6],
         };
     });
 };

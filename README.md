@@ -34,6 +34,8 @@ curl http://localhost8000/scss-lint?git_repository=https://github.com/lukasmarti
   - flake8
   - pyflakes
   - pylint
+- GeoJSON
+  - geojsonhint
 
 ## Developer
 
