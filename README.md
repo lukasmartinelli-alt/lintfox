@@ -36,6 +36,8 @@ curl http://localhost8000/scss-lint?git_repository=https://github.com/lukasmarti
   - pylint
 - GeoJSON
   - geojsonhint
+- YAML
+  - yamllint
 
 ## Developer
 

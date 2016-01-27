@@ -61,6 +61,25 @@ function geojsonhint(repoPath) {
     });
 }
 
+function yamllint(repoPath) {
+    var re = /File : (.*(?:\.yml|\.yaml)), error: \((.*(?:\.yml|\.yaml))\): (.*) at line (\d+) column (\d+)/g;
+    return execFileAlways('yaml-lint', [repoPath], { cwd: repoPath }).then(function(stdout, stderr) {
+        return stdout.split('\n').map(function(line) {
+            var m = re.exec(line);
+            if (m != null) {
+                return {
+                    path: m[1],
+                    line: m[4],
+                    column: m[5],
+                    text: m[3]
+                };
+            }
+        }).filter(function(v) {
+            return v != null;
+        });
+    });
+}
+
 function pylint(repoPath) {
     var msgTemplate = '{msg_id}|{path}|{line:3d}|{column}|{obj}|{msg}';
     return glob('**/*.py', { cwd: repoPath }).then(function(files) {
@@ -193,6 +212,7 @@ module.exports = function lint(repoPath) {
         pylint(repoPath),
         flake8(repoPath),
         geojsonhint(repoPath),
+        yamllint(repoPath),
     ]).then(function(results) {
         return {
             pep8: results[0],
@@ -202,6 +222,7 @@ module.exports = function lint(repoPath) {
             pylint: results[4],
             flake8: results[5],
             geojsonhint: results[6],
+            yamllint: results[7],
         };
     });
 };
