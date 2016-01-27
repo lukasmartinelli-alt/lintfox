@@ -117,19 +117,53 @@ function pep8(repoPath) {
 
 function rubocop(repoPath) {
     return execFileAlways('rubocop', ['--lint', '--format', 'json', repoPath]).then(function(stdout) {
-        return JSON.parse(stdout).files;
+        var lintOutput = JSON.parse(stdout).files;
+        var normalizedOutput = lintOutput.filter(function(file) {
+            return file.offenses.length > 0;
+        }).map(function(file) {
+            return file.offenses.map(function(offense) {
+                return {
+                    path: file.path,
+                    line: offense.location.line,
+                    column: offense.location.column,
+                    severity: offense.severity,
+                    code: offense.cop_name,
+                    text: offense.message,
+                }
+            });
+        });
+
+        return [].concat.apply([], normalizedOutput);
     });
 }
 
 function rubylint(repoPath) {
     var deferred = Q.defer();
     execFileOldschool('ruby-lint', ['--presenter', 'json', repoPath], { cwd: repoPath }, function(err, stdout, stderr) {
-        deferred.resolve(JSON.parse(stdout));
+        var lintOutput = JSON.parse(stdout);
+        var normalizedOutput = lintOutput.map(function(issue) {
+            return {
+                path: issue.file,
+                line: issue.line,
+                column: issue.column,
+                severity: issue.level,
+                text: issue.message
+            }
+        });
+        deferred.resolve(normalizedOutput);
     });
     return deferred.promise;
 }
 
 module.exports = function lint(repoPath) {
+    function stripRepoPath(results) {
+        return results.map(function(issue) {
+           issue.path = issue.path.replace(new RegExp("^" + repoPath), '');
+           console.log(issue.path);
+           return issue;
+        });
+    }
+
     return Q.all([
         pep8(repoPath),
         rubocop(repoPath),
