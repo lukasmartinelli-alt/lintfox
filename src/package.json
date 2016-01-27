@@ -2,10 +2,9 @@
   "name": "lintfox-api",
   "version": "1.0.0",
   "description": "API Gateway for Lintfox",
-  "main": "index.js",
   "scripts": {
-    "start": "nodemon -L index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "node cli.js",
+    "serve": "node server.js"
   },
   "repository": {
     "type": "git",

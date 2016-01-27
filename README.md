@@ -7,10 +7,11 @@ and configuration files into a single tool you can run on your source code.
 
 ## Run Lintfox on your Code
 
-Docker is and a combination of shell scripts is used to call each of the linters for a repository.
+Docker is required to encapsulate all the different linters into one image.
+You can run all linters on your code by mounting it to the `/source` volume.
 
 ```bash
-docker run --rm -p 8000:8000 lukasmartinelli/lintfox .
+docker run --rm -v $(pwd):/source lukasmartinelli/lintfox npm run lint
 ```
 
 ## Run a Linter via API Call

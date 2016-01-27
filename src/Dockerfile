@@ -44,4 +44,6 @@ RUN npm install
 COPY . /usr/src/app/
 
 EXPOSE 3000
+ENV REPO_PATH="/source"
+VOLUME /source
 CMD ["npm", "start"]
