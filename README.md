@@ -2,8 +2,8 @@
 
 <img align="right" alt="nigit cat logo" src="lintfox.png" />
 
-Lintfox uses [Nigit](https://github.com/lukasmartinelli/nigit) and Docker to provide a **HTTP API** to most linters for most programming languages, data formats
-and configuration files.
+The goal of **Lintfox** is to encapsulate linters for almost all programming languages, data formats
+and configuration files into a single tool you can run on your source code.
 
 ## Run Lintfox
 
