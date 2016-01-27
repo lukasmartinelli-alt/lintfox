@@ -61,6 +61,30 @@ function geojsonhint(repoPath) {
     });
 }
 
+function shellcheck(repoPath) {
+    return glob('**/*.sh', { cwd: repoPath }).then(function(files) {
+        return Q.all(files.map(function(file) {
+            return execFileAlways('shellcheck', ['-f', 'json', path.join(repoPath, file)]).then(function(stdout) {
+                var lintOutput = JSON.parse(stdout);
+                return lintOutput.map(function(issue) {
+                    return {
+                        path: file,
+                        line: issue.column,
+                        column: issue.column,
+                        code: issue.code,
+                        severity: issue.level,
+                        text: issue.message
+                    };
+                });
+            });
+        })).then(function(results) {
+            return results.reduce(function(a, b){
+                return a.concat(b);
+            });
+        });
+    });
+}
+
 function yamllint(repoPath) {
     var re = /File : (.*(?:\.yml|\.yaml)), error: \((.*(?:\.yml|\.yaml))\): (.*) at line (\d+) column (\d+)/g;
     return execFileAlways('yaml-lint', [repoPath], { cwd: repoPath }).then(function(stdout, stderr) {
@@ -213,6 +237,7 @@ module.exports = function lint(repoPath) {
         flake8(repoPath),
         geojsonhint(repoPath),
         yamllint(repoPath),
+        shellcheck(repoPath),
     ]).then(function(results) {
         return {
             pep8: results[0],
@@ -223,6 +248,7 @@ module.exports = function lint(repoPath) {
             flake8: results[5],
             geojsonhint: results[6],
             yamllint: results[7],
+            shellcheck: results[8],
         };
     });
 };
