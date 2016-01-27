@@ -24,27 +24,16 @@ to `application/json`.
 curl http://localhost8000/scss-lint?git_repository=https://github.com/lukasmartinelli/lintfox.git
 ```
 
-## Support
+## Supported Linters
 
-- JavaScript
-  - eslint
-  - jshint
-  - jslint
 - Ruby
   - rubocop
   - ruby-lint
 - Python
-  - flake8
   - pep8
-  - pylint
+  - flake8
   - pyflakes
-- GeoJSON
-  - geojsonhint
-- JSON
-  - jsonlint
-- Bash
-  - shellcheck
-
+  - pylint
 
 ## Developer
 

@@ -146,7 +146,5 @@ module.exports = function lint(repoPath) {
             pylint: results[4],
             flake8: results[5],
         };
-    }, function(err) {
-        console.error(err);
     });
 };
