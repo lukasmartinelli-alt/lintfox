@@ -85,6 +85,34 @@ function shellcheck(repoPath) {
     });
 }
 
+function jsonlint(repoPath) {
+    var re = /^(.*\.json): line (\d+), col (\d+), (.*)\.$/g;
+    return glob('**/*.json', { cwd: repoPath }).then(function(files) {
+        return Q.all(files.map(function(file) {
+            return execFileAlways('jsonlint', ['-cq', path.join(repoPath, file)]);
+        })).then(function(results) {
+            console.log(results);
+            return results.map(function(result) {
+                return result.split('\n').map(function(line) {
+                    var m = re.exec(line);
+                    if (m != null) {
+                        return {
+                            path: m[1],
+                            line: m[2],
+                            column: m[3],
+                            text: m[4]
+                        };
+                    }
+                }).filter(function(v) {
+                    return v != null;
+                });
+            }).reduce(function(a, b){
+                return a.concat(b);
+            });
+        });
+    });
+}
+
 function yamllint(repoPath) {
     var re = /File : (.*(?:\.yml|\.yaml)), error: \((.*(?:\.yml|\.yaml))\): (.*) at line (\d+) column (\d+)/g;
     return execFileAlways('yaml-lint', [repoPath], { cwd: repoPath }).then(function(stdout, stderr) {
