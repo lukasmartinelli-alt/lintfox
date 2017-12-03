@@ -1,6 +1,8 @@
-# Lintfox [![Build Status](https://travis-ci.org/lukasmartinelli/lintfox.svg)](https://travis-ci.org/lukasmartinelli/lintfox) ![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)
+# Lintfox ![stability-deprecated](https://img.shields.io/badge/stability-deprecated-red.svg)  [![Build Status](https://travis-ci.org/lukasmartinelli/lintfox.svg)](https://travis-ci.org/lukasmartinelli/lintfox) ![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)
 
 <img align="right" alt="nigit cat logo" src="lintfox.png" />
+
+> :warning: This repository is no longer maintained by Lukas Martinelli.
 
 The goal of **Lintfox** is to encapsulate linters for almost all programming languages, data formats
 and configuration files into a single tool you can run on your source code.
